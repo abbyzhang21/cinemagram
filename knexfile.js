@@ -8,7 +8,7 @@ module.exports = {
       host: '127.0.0.1',
       user: 'db_user',
       password: '12',
-      database: 'cinemagram_DB',
+      database: 'cinemagram',
       charset: 'utf8'
     },
     migrations: {
