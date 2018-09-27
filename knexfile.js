@@ -5,10 +5,10 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      host: '127.0.0.1',
+      host: 'localhost',
       user: 'db_user',
       password: '12',
-      database: 'cinemagram',
+      database: 'cinemagramdb',
       charset: 'utf8'
     },
     migrations: {
@@ -20,9 +20,9 @@ module.exports = {
   },
 
   staging: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
-      database: 'my_db',
+      database: 'cinemagramdb',
       user: 'username',
       password: 'password'
     },
@@ -36,9 +36,9 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
-      database: 'my_db',
+      database: 'cinemagramdb',
       user: 'username',
       password: 'password'
     },

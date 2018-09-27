@@ -1,11 +1,11 @@
-version: '3'
+version: '3.1'
 services:
   my-app:
     image: abbyz/cinemagram:${IMAGE_VERSION}-staging
     depends_on:
       - db
     command: ['npm', 'run', 'dev']
-    container_name: my-app
+    container_name: cinemagram
     volumes:
       - '.:/app/:rw'
     env_file: .env
