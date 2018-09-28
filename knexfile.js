@@ -6,10 +6,10 @@ module.exports = {
     client: 'pg',
     connection: {
       host: 'localhost',
-      user: 'db_user',
-      password: '12',
-      database: 'cinemagramdb',
-      charset: 'utf8'
+      port: process.env.POSTGRES_CONTAINER_PORT,
+      database: process.env.POSTGRES_DB,
+      user: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD
     },
     migrations: {
       directory: __dirname + '/knex/migrations',
