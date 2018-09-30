@@ -51,7 +51,7 @@ Router.get('/gallery/:id', (req, res) => {
         .then(result => {
             const item = result.serialize();
             // res.json(result.serialize())
-            res.render('detail', { item })
+            res.render('detail', item)
         })
         .catch(err => {
             res.json(err)
