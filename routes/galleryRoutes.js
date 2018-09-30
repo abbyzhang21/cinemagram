@@ -27,6 +27,7 @@ Router.get('/', (req, res) => {
 })
 
 //get gallery listing
+//something
 Router.get('/gallery', (req, res) => {
 
     Gallery
