@@ -1,9 +1,11 @@
-{{!-- header --}}
-{{>header}}
+<div class="wrapper">
+    {{>header}}
+    <div class="gallery-container">
+        {{titile}}
+        <img src={{link}}>
+        <p>{{description}}</p>
+        <p>{{author}}</p>
+    </div>
 
-{{!-- body --}}
-<div class="gallery-container">
-
+    <br>{{>footer}}
 </div>
-
-<br>{{>footer}}

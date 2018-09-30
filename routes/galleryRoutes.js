@@ -12,9 +12,9 @@ Router.get('/', (req, res) => {
     Gallery
         .fetchAll()
         .then(result => {
-            console.log('result: ', result)
-            res.json(result.serialize())
-            // res.render('home', result)
+            const item = result.serialize();
+            // console.log('result: ', result)
+            res.render('index', { item })
         })
         .catch(err => {
             console.log('error: ', err)
@@ -22,6 +22,22 @@ Router.get('/', (req, res) => {
         })
 })
 
+//get gallery listing
+Router.get('/gallery', (req, res) => {
+
+    Gallery
+        .fetchAll()
+        .then(result => {
+            const item = result.serialize();
+            console.log('result: ', result)
+            // res.json(result.serialize())
+            res.render('listing', { item })
+        })
+        .catch(err => {
+            console.log('error: ', err)
+            res.json(err)
+        })
+})
 //get gallery detail
 Router.get('/gallery/:id', (req, res) => {
     const { id } = req.params;
@@ -29,7 +45,9 @@ Router.get('/gallery/:id', (req, res) => {
         .where({ id })
         .fetchAll()
         .then(result => {
-            res.json(result.serialize())
+            const item = result.serialize()[0];
+            // res.json(result.serialize())
+            res.render('detail', { item })
         })
         .catch(err => {
             res.json(err)

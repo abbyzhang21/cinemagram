@@ -2,7 +2,10 @@
 {{>header}}
 
 {{!-- body --}}
-<div class="gallery-container">
+{{#each item}}
+<div class="gallery-listing">
+    <img src={{link}}>
+    <a href="/gallery/{{id}}">{{title}}</a>
 </div>
-
+{{/each}}
 <br>{{>footer}}
