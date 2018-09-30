@@ -93,9 +93,6 @@ Router.post('/gallery/new', (req, res) => {
             console.log('error: ', err)
             res.json(err)
         })
-    // const item = req.body;
-    // console.log('req.body: ', req.body)
-    // res.json(item);
 })
 
 //update gallery item
@@ -107,7 +104,18 @@ Router.put('/gallery/:id', (req, res) => {
 
 //delete gallery photo
 Router.delete('/gallery/:id', (req, res) => {
-    console.log('deleted gallery photo....');
+
+    const { id } = req.params;
+
+    Gallery
+        .where({ id })
+        .destroy()
+        .then(result => {
+            res.json(result);
+        })
+        .catch(err => {
+            res.json(err);
+        })
 });
 
 module.exports = Router;
