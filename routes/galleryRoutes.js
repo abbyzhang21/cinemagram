@@ -6,6 +6,10 @@ const DS_gallery = new gallery();
 
 const Gallery = require('../knex/models/Gallery.js')
 
+Router.get('/login', (req, res) => {
+    res.render('loginForm')
+})
+
 //get home page
 Router.get('/', (req, res) => {
 
@@ -30,6 +34,7 @@ Router.get('/gallery/:id', (req, res) => {
         .fetchAll()
         .then(result => {
             res.json(result.serialize())
+            // res.render('detail', result)
         })
         .catch(err => {
             res.json(err)
@@ -49,10 +54,31 @@ Router.get('/gallery/:id/edit', (req, res) => {
 })
 
 //create a gallery photo
-Router.post('/gallery', (req, res) => {
-    const item = req.body;
-    console.log('req.body: ', req.body)
-    res.json(item);
+Router.post('/gallery/new', (req, res) => {
+    console.log('req.body: ', req.body);
+    console.log('req.body.title: ', req.body.title)
+
+    const galleryItem = {
+        title: req.body.title,
+        author: req.body.author,
+        link: req.body.link,
+        description: req.body.description
+    }
+
+    Gallery
+        .forge(galleryItem)
+        .save()
+        .then(result => {
+            res.json(result)
+            console.log('result: ', result)
+        })
+        .catch(err => {
+            console.log('error: ', err)
+            res.json(err)
+        })
+    // const item = req.body;
+    // console.log('req.body: ', req.body)
+    // res.json(item);
 })
 
 //update gallery item

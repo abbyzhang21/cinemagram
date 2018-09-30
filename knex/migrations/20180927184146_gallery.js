@@ -7,6 +7,7 @@ exports.up = function (knex, Promise) {
             table.string('author').notNullable();
             table.string('link').notNullable();
             table.string('description').notNullable();
+            table.timestamps(true, true)
         })
     ])
 };
