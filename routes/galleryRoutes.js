@@ -107,7 +107,18 @@ Router.put('/gallery/:id', (req, res) => {
 
 //delete gallery photo
 Router.delete('/gallery/:id', (req, res) => {
-    console.log('deleted gallery photo....');
+
+    const { id } = req.params;
+
+    Gallery
+        .where({ id })
+        .destroy()
+        .then(result => {
+            res.json(result);
+        })
+        .catch(err => {
+            res.json(err);
+        })
 });
 
 module.exports = Router;
