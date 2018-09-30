@@ -2,35 +2,50 @@ const express = require('express');
 const Router = express.Router();
 
 const gallery = require('../db/gallerydb.js');
-// const DS_gallery = new gallery();
+const DS_gallery = new gallery();
 
-
-
+const Gallery = require('../knex/models/Gallery.js')
 
 //get home page
 Router.get('/', (req, res) => {
-    console.log('is this working.........?');
-    // const gallery = DS_gallery.all()
-    // res.render('galleries', { gallery });
-    res.send('hellllllllo');
+
+    Gallery
+        .fetchAll()
+        .then(result => {
+            console.log('result: ', result)
+            res.json(result.serialize())
+            // res.render('home', result)
+        })
+        .catch(err => {
+            console.log('error: ', err)
+            res.json(err)
+        })
 })
 
 //get gallery detail
 Router.get('/gallery/:id', (req, res) => {
-    res.send('gallery detail');
-    console.log('gallery detail');
+    const { id } = req.params;
+    Gallery
+        .where({ id })
+        .fetchAll()
+        .then(result => {
+            res.json(result.serialize())
+        })
+        .catch(err => {
+            res.json(err)
+        })
 })
 
 //get gallery item form
 Router.get('/gallery/new', (req, res) => {
+    // res.render('form');
     res.send('new gallery item form');
-    console.log('new gallery item form');
 })
 
 //get edit form
 Router.get('/gallery/:id/edit', (req, res) => {
+    // res.render('edit_form')
     res.send('edit gallery detail form');
-    console.log('edit gallery detail form');
 })
 
 //create a gallery photo
