@@ -33,7 +33,6 @@ Router.get('/gallery', (req, res) => {
         .fetchAll()
         .then(result => {
             const item = result.serialize();
-            console.log('result: ', result)
             // res.json(result.serialize())
             res.render('listing', { item })
         })
@@ -45,11 +44,12 @@ Router.get('/gallery', (req, res) => {
 //get gallery detail
 Router.get('/gallery/:id', (req, res) => {
     const { id } = req.params;
+    console.log('req.params ', req.params)
     Gallery
         .where({ id })
         .fetchAll()
         .then(result => {
-            const item = result.serialize()[0];
+            const item = result.serialize();
             // res.json(result.serialize())
             res.render('detail', { item })
         })
