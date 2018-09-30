@@ -1,12 +1,12 @@
 class gallery {
     constructor() {
-        this.knex = require('../knex/knex.js');
+        this.knex = require('../knex/knex.js')
     }
     all() {
-        return this.knex.raw('SELECT * FROM gallery');
+        return this.knex.raw(`SELECT * FROM gallery`)
     }
     getItemById(id) {
-        return this.knex.raw(`SELECT * FROM items WHERE id = ${id}`)
+        return this.knex.raw(`SELECT * FROM gallery WHERE id = ${id}`)
     }
     add(prod) {
         return this.knex.raw(`INSERT INTO items(name, description) VALUES('${prod.name}','${prod.description}')`)
