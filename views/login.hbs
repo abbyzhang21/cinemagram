@@ -1,0 +1,17 @@
+<div class="wrapper login">
+    <div class="logo">
+        <a href="/">
+            <h1>cinemagram
+                <i class="fas fa-film"></i>
+            </h1>
+        </a>
+    </div>
+    <form action="/gallery" method='post' class='form'>
+        <label for='user'>Username</label>
+        <input type="text" placeholder="Enter Username" name="uname" id='user' required>
+        <label for='password'>Password</label>
+        <input type="password" placeholder="Enter Password" name="psw" id='password' required>
+        <input type="submit" name='submit' class='submit_btn'>
+    </form>
+    <br>{{>footer}}
+</div>

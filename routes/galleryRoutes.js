@@ -7,7 +7,7 @@ const DS_gallery = new gallery();
 const Gallery = require('../knex/models/Gallery.js')
 
 Router.get('/login', (req, res) => {
-    res.render('loginForm')
+    res.render('login')
 })
 
 //get home page
