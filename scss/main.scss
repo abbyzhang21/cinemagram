@@ -67,7 +67,7 @@ nav{
 }
 .wrapper{
     width: 100%;
-    max-width: 870px;
+    max-width: 900px;
     margin: 0 auto;
     
 }
@@ -82,8 +82,12 @@ nav{
             height:400px;
             width:250px;
             }
-         &first-child{
-            width: 800px;
+         &:first-child{
+            height: 600px;
+            >img{
+                width: 750px;
+                height:550px;
+            }
         }
         a{
             color:white;
@@ -101,30 +105,45 @@ nav{
         width:350px;
     }
 }
-// .logo{
-//     text-align: center;
-//     color:white;
-// }
-
 .login{
-    padding-top: 30px 30px;
-    background-color: red;
-    >.log{
+    padding-top: 30px;
+    padding-bottom: 300px;
+    
+    .logo{
         text-align: center;
-        color:white;  
+        h1{
+            color:white;
+        }
     }
+    
     .form{
-        padding-top: 50px;
+        padding-top: 100px;
+        text-align: center;
         label, input{
             display: block;
         }
         input{
             padding: 20px 0 20px 5px;
-            border: 1px solid $orange;
             border-radius: 10px;
-            width: 100%;
-            margin-top: 10px;
+            width: 50%;
+            margin: 0 auto;
+            margin-top:10px;
             margin-bottom: 20px;
+            
         }
     }
 }
+.submit_btn{
+    background-color: black;
+    color:white;
+    padding:5px;
+    width: 100%;
+    font-size: 24px;
+    border: none;
+}
+.submit_btn:hover{
+    border-bottom: 1px solid white;
+    width: 20%;
+}
+
+
