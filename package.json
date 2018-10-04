@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "dev": "npx nodemon server.js & npx gulp",
     "test": "echo \"Error: no test specified\" && exit 1",
     "migrate": "POSTGRES_HOSTNAME=localhost POSTGRES_CONTAINER_PORT=8765 npx knex migrate:latest",
     "seed": "POSTGRES_HOSTNAME=localhost POSTGRES_CONTAINER_PORT=8765  npx knex seed:run",
@@ -30,5 +31,10 @@
     "migrate": "^1.6.1",
     "nodemon": "^1.18.4",
     "pg": "^7.4.3"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.24.7",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^4.0.1"
   }
 }

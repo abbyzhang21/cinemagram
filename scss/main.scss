@@ -1,0 +1,103 @@
+
+@import url('https://fonts.googleapis.com/css?family=Poiret+One');
+@import 'normalize';
+$font_style : 'Poiret One', cursive;
+$charcoal : #4a4a4a;
+
+a{
+    text-decoration: none;
+}
+
+body{
+    background-color:white;
+    font-family: $font_style;
+    font-size: 16px;
+    color: white;
+    margin: 0;
+    background: black;
+}
+p{
+    font-weight: 300;
+}
+
+nav{
+    background-color: black;
+    padding:3px;
+    h1{
+        text-transform: uppercase;
+        color:white;
+    }
+    button{
+        // flex: 0 0 auto;
+        text-transform: uppercase;
+        margin-top: 28px;
+        background-color: black;
+        color:white;
+        border: none;
+    }
+    .wrapper{
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-around;
+    }
+}
+
+.cinema-container{
+    height:700px;
+    width: 100%;
+    background-image: url('https://78.media.tumblr.com/968c2d6c5c794cc177ee5fd0f3b0391d/tumblr_oub47yFMKP1u034pso3_540.gif');
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    a{
+        color:white;
+        font-size: 25px;
+        position:relative;
+        top:80%;
+        left: 15%;
+    }
+}
+.footer{
+    p{
+        width:70%;
+        margin: 20px auto;
+        border-top: 1px solid white;
+        padding: 30px;;
+    }
+}
+.wrapper{
+    width: 100%;
+    max-width: 870px;
+    margin: 0 auto;
+    
+}
+#gallery{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    padding-top: 40px;
+    .gallery-listing{
+        height: 450px;
+        >img{
+            height:400px;
+            width:250px;
+            }
+         &first-child{
+            width: 800px;
+        }
+        a{
+            color:white;
+            display: block;
+        }
+        a::first-letter{
+            text-transform: uppercase
+        }
+
+    }
+}
+.gallery-container{
+    >img{
+        height:500px;
+        width:350px;
+    }
+}

@@ -1,11 +1,3 @@
-{{!-- header --}}
 {{>header}}
-
-{{!-- body --}}
-{{#each item}}
-<div class="gallery-listing">
-    <img src={{link}}>
-    <a href="/gallery/{{id}}">{{title}}</a>
-</div>
-{{/each}}
-<br>{{>footer}}
+{{>list}}
+{{>footer}}
