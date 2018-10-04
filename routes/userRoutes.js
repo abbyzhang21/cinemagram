@@ -9,45 +9,99 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const bcrypt = require('bcrypt');
 
-Router.get('/login', (req, res) => {
-  console.log('req.session: ', req.session)
-  if (!req.session.viewCount) {
-    req.session.viewCount = 1
-  } else {
-    req.session.viewCount++
-  }
-  res.render('login')
+passport.serializeUser((user, done) => {
+  console.log('serializeUser: ', user)
+  done(null, {
+    username: user.username,
+    encryptionkey: 'randomData'
+  })
 })
 
-Router.get('/login/protected', (req, res) => {
-  res.send('this is a protected route')
+passport.deserializeUser((user, done) => {
+  console.log('deserializingUser: ', user)
+  Users
+    .where({ username: user.username })
+    .fetch()
+    .then(user => {
+      user = user.toJSON()
+      done(null, user)
+    })
+    .catch(err => {
+      console.log('err', err)
+    })
+})
+
+// passport.use(new LocalStrategy({ usernameField: 'username' }, (username, password, done) => {
+//   console.log('local strategy is being called')
+//   Users
+//     .where({ username })
+//     .fetch()
+//     .then(user => {
+//       console.log('user in local strategy: ', user)
+//       user = user.toJSON()
+//       bcrypt.compare(password, user.password)
+//         .then(res => {
+//           if (res) {
+//             done(null, user)
+//           } else {
+//             done(null, false)
+//           }
+//         })
+//     })
+//     .catch(err => {
+//       done(null, false)
+//     })
+// }))
+
+passport.use(new LocalStrategy({ usernameField: 'username' }, (username, password, done) => {
+  Users
+    .where({ username })
+    .then(user => {
+      return bcrypt.compare(password, user.password)
+    })
+    .then(result => {
+      if (result) {
+        done(null, user)
+      } else {
+        done(null, false)
+      }
+    })
+    .catch(err => {
+      done(err)
+    })
+}))
+
+const SALT_ROUND = 12;
+
+Router.get('/login', (req, res) => {
+  res.render('login')
 })
 
 Router.post('/register', (req, res) => {
   const { username, password } = req.body
   console.log('username, password: ', username, password)
-  Users
-    .forge({ username, password })
-    .save()
-    .then(result => {
-      if (result) {
-        res.send('user created!')
-      } else {
-        res.send('user already exits')
-      }
+
+  bcrypt.genSalt(SALT_ROUND)
+    .then(salt => {
+      console.log('salt', salt)
+      return bcrypt.hash(password, salt)
+    })
+    .then(hash => {
+      console.log('hash', hash)
+      return Users
+        .forge({ username, password: hash })
+        .save()
+    })
+    .then(user => {
+      user = user.toJSON()
+      res.json(user)
     })
     .catch(err => {
-      console.log('error: ', err)
-      res.send(err)
+      console.log('error', err)
+      res.json(err)
     })
+
 })
-
-// Router.post('/auth/register', (req, res) => {
-//   const {username, password} = req.body
-//   console.log('username, password: ', username, password)
-
-
-// })
 
 Router.post('/login', (req, res) => {
   const { username, password } = req.body
@@ -69,6 +123,13 @@ Router.post('/login', (req, res) => {
       console.log('error: ', err)
       res.send(err)
     })
+})
+
+Router.post('/auth/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
+  // grab the user on record
+  // compare req.body.password to password on record
+
+  res.redirect('YAY IM IN!!!!')
 })
 
 Router.get('/logout', (req, res) => {
