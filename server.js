@@ -8,11 +8,17 @@ const galleryRoutes = require('./routes/galleryRoutes.js')
 const userRoutes = require('./routes/userRoutes.js')
 const methodOverride = require('method-override');
 
-// const session = require('express-session');
-// const RedisStore = require('connect-redis')(session)
+const session = require('express-session');
+const RedisStore = require('connect-redis')(session)
+const passport = require('passport')
 
-// const passport = require('passport')
 
+app.use(session({
+    store: new RedisStore({ url: 'redis://redis:6379', logErrors: true }),
+    secret: 'supersecret ',
+    resave: false,
+    saveUninitialized: true
+}))
 
 app.use(methodOverride('_method'));
 
@@ -23,7 +29,6 @@ app.set('view engine', '.hbs')
 
 app.use('/', galleryRoutes)
 app.use('/', userRoutes)
-
 
 
 app.listen(PORT, () => {
