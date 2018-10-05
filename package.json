@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/abbyzhang21/cinemagram#readme",
   "dependencies": {
+    "bcrypt": "^3.0.1",
     "body-parser": "^1.18.3",
     "bookshelf": "^0.13.3",
     "connect-redis": "^3.4.0",
@@ -34,7 +35,8 @@
     "nodemon": "^1.18.4",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "pg": "^7.4.3"
+    "pg": "^7.4.3",
+    "redis-cli": "^1.0.2"
   },
   "devDependencies": {
     "browser-sync": "^2.24.7",
