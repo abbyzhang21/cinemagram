@@ -31,50 +31,54 @@ passport.deserializeUser((user, done) => {
     })
 })
 
-// passport.use(new LocalStrategy({ usernameField: 'username' }, (username, password, done) => {
-//   console.log('local strategy is being called')
-//   Users
-//     .where({ username })
-//     .fetch()
-//     .then(user => {
-//       console.log('user in local strategy: ', user)
-//       user = user.toJSON()
-//       bcrypt.compare(password, user.password)
-//         .then(res => {
-//           if (res) {
-//             done(null, user)
-//           } else {
-//             done(null, false)
-//           }
-//         })
-//     })
-//     .catch(err => {
-//       done(null, false)
-//     })
-// }))
-
 passport.use(new LocalStrategy({ usernameField: 'username' }, (username, password, done) => {
+  console.log('local strategy is being called')
   Users
     .where({ username })
+    .fetch()
     .then(user => {
-      return bcrypt.compare(password, user.password)
-    })
-    .then(result => {
-      if (result) {
-        done(null, user)
-      } else {
-        done(null, false)
-      }
+      console.log('user in local strategy: ', user)
+      user = user.toJSON()
+      bcrypt.compare(password, user.password)
+        .then(res => {
+          if (res) {
+            done(null, user)
+          } else {
+            done(null, false)
+          }
+        })
     })
     .catch(err => {
-      done(err)
+      done(null, false)
     })
 }))
+
+// passport.use(new LocalStrategy({ usernameField: 'username' }, (username, password, done) => {
+//   Users
+//     .where({ username })
+//     .then(user => {
+//       return bcrypt.compare(password, user.password)
+//     })
+//     .then(result => {
+//       if (result) {
+//         done(null, user)
+//       } else {
+//         done(null, false)
+//       }
+//     })
+//     .catch(err => {
+//       done(err)
+//     })
+// }))
 
 const SALT_ROUND = 12;
 
 Router.get('/login', (req, res) => {
   res.render('login')
+})
+
+Router.get('/register', (req, res) => {
+  res.render('register')
 })
 
 Router.post('/register', (req, res) => {
@@ -94,7 +98,7 @@ Router.post('/register', (req, res) => {
     })
     .then(user => {
       user = user.toJSON()
-      res.json(user)
+      res.redirect('/gallery')
     })
     .catch(err => {
       console.log('error', err)
@@ -125,12 +129,12 @@ Router.post('/login', (req, res) => {
     })
 })
 
-Router.post('/auth/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
-  // grab the user on record
-  // compare req.body.password to password on record
+// Router.post('/auth/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
+//   // grab the user on record
+//   // compare req.body.password to password on record
 
-  res.redirect('YAY IM IN!!!!')
-})
+//   res.redirect('YAY IM IN!!!!')
+// })
 
 Router.get('/logout', (req, res) => {
   req.session.destroy()
