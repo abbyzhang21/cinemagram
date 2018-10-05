@@ -27,13 +27,13 @@ Router.get('/', (req, res) => {
 })
 
 //get gallery listing
+//something
 Router.get('/gallery', (req, res) => {
 
     Gallery
         .fetchAll()
         .then(result => {
             const item = result.serialize();
-            console.log('result: ', result)
             // res.json(result.serialize())
             res.render('listing', { item })
         })
@@ -45,11 +45,12 @@ Router.get('/gallery', (req, res) => {
 //get gallery detail
 Router.get('/gallery/:id', (req, res) => {
     const { id } = req.params;
+    console.log('req.params ', req.params)
     Gallery
         .where({ id })
         .fetchAll()
         .then(result => {
-            const item = result.serialize()[0];
+            const item = result.serialize();
             // res.json(result.serialize())
             res.render('detail', item)
         })
@@ -93,9 +94,6 @@ Router.post('/gallery/new', (req, res) => {
             console.log('error: ', err)
             res.json(err)
         })
-    // const item = req.body;
-    // console.log('req.body: ', req.body)
-    // res.json(item);
 })
 
 //update gallery item
@@ -107,7 +105,18 @@ Router.put('/gallery/:id', (req, res) => {
 
 //delete gallery photo
 Router.delete('/gallery/:id', (req, res) => {
-    console.log('deleted gallery photo....');
+
+    const { id } = req.params;
+
+    Gallery
+        .where({ id })
+        .destroy()
+        .then(result => {
+            res.json(result);
+        })
+        .catch(err => {
+            res.json(err);
+        })
 });
 
 module.exports = Router;
